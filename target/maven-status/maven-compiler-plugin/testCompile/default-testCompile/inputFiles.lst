@@ -1,0 +1,6 @@
+/home/glaucia/Documents/thoughtworks/tw-project/src/test/java/com/thoughtworks/problem1application/unit/domain/entities/UserTest.java
+/home/glaucia/Documents/thoughtworks/tw-project/src/test/java/com/thoughtworks/problem1application/unit/domain/services/UserDomainServiceImplTest.java
+/home/glaucia/Documents/thoughtworks/tw-project/src/test/java/com/thoughtworks/problem1application/Problem1ApplicationTests.java
+/home/glaucia/Documents/thoughtworks/tw-project/src/test/java/com/thoughtworks/problem1application/helpers/UserBuilder.java
+/home/glaucia/Documents/thoughtworks/tw-project/src/test/java/com/thoughtworks/problem1application/functional/UserFunctionalTest.java
+/home/glaucia/Documents/thoughtworks/tw-project/src/test/java/com/thoughtworks/problem1application/S3CliControllerTest.java
