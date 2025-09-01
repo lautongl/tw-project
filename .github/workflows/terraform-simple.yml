@@ -11,16 +11,11 @@ on:
 env:
   TF_VERSION: "1.5.7"
   AWS_REGION: "us-east-1"
-  # se seu Terraform exige "environment", fixei um padrão:
   ENVIRONMENT: "main"
 
 jobs:
   apply:
     runs-on: ubuntu-latest
-    env:
-      # ⚠️ Para teste: lendo das Repository Variables (Settings → Variables → Actions)
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     steps:
       - uses: actions/checkout@v4
@@ -29,11 +24,12 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
-      - name: Configure AWS (from repo variables)
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}   # <--- deixe esse secret cadastrado (pode estar vazio, se não usar token temporário)
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Terraform validate (no backend)
