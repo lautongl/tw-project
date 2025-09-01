@@ -12,7 +12,7 @@ env:
   TF_VERSION: "1.5.7"
   AWS_REGION: "us-east-1"
   # se seu Terraform exige "environment", fixei um padrão:
-  ENVIRONMENT: "development-v0.1"
+  ENVIRONMENT: "main"
 
 jobs:
   apply:
