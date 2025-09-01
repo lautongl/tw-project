@@ -1,0 +1,6 @@
+com/thoughtworks/problem1application/functional/UserFunctionalTest.class
+com/thoughtworks/problem1application/Problem1ApplicationTests.class
+com/thoughtworks/problem1application/S3CliControllerTest.class
+com/thoughtworks/problem1application/unit/domain/entities/UserTest.class
+com/thoughtworks/problem1application/helpers/UserBuilder.class
+com/thoughtworks/problem1application/unit/domain/services/UserDomainServiceImplTest.class
