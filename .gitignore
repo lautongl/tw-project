@@ -1,0 +1,17 @@
+# Java / Maven
+target/
+**/target/
+*.class
+# Test reports
+*.exec
+surefire-reports/
+**/surefire-reports/
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+# IDE/OS
+.idea/
+*.iml
+.DS_Store
