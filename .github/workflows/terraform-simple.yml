@@ -48,4 +48,5 @@ jobs:
           echo "Applying for bucket: ${{ github.event.inputs.bucket_name }} (env=${{ env.ENVIRONMENT }})"
           terraform apply -auto-approve \
             -var="bucket_name=${{ github.event.inputs.bucket_name }}" \
-            -var="environment=${{ env.ENVIRONMENT }}"
+            -var="environment=${{ env.ENVIRONMENT }}" \
+            -var="aws_region=${{ env.AWS_REGION }}"
