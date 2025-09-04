@@ -11,11 +11,20 @@ public class S3PipelineController {
         try {
             RestTemplate restTemplate = new RestTemplate();
             HttpHeaders headers = new HttpHeaders();
-            headers.setBearerAuth("SEU_GITHUB_TOKEN");
+
+            // Use variável de ambiente para o token, nunca hardcode!
+            String githubToken = System.getenv("GITHUB_TOKEN");
+            if (githubToken == null || githubToken.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Token de autenticação do GitHub não está configurado.");
+            }
+
+            headers.setBearerAuth(githubToken);
             headers.set("Accept", "application/vnd.github+json");
             headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.set("X-GitHub-Api-Version", "2022-11-28");
 
-            String url = "https://api.github.com/repos/SEU_OWNER/SEU_REPO/actions/workflows/terraform-simple.yml/dispatches";
+            String url = "https://api.github.com/repos/lautongl/tw-project/actions/workflows/terraform-simple.yml/dispatches";
             String body = String.format(
                 "{\"ref\":\"main\",\"inputs\":{\"bucket_name\":\"%s\"}}",
                 bucketName
@@ -24,11 +33,15 @@ public class S3PipelineController {
             HttpEntity<String> entity = new HttpEntity<>(body, headers);
             ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
 
-            if (response.getStatusCode().is2xxSuccessful()) {
+            // Status 204 indica sucesso sem conteúdo
+            if (response.getStatusCodeValue() == 204) {
                 return ResponseEntity.ok("Pipeline disparada para bucket " + bucketName);
             } else {
-                return ResponseEntity.status(response.getStatusCode())
-                       .body("Falha ao disparar pipeline: " + response.getBody());
+                String respBody = response.getBody();
+                String msg = respBody != null 
+                    ? "Falha ao disparar pipeline: " + respBody 
+                    : "Falha ao disparar pipeline: status " + response.getStatusCodeValue();
+                return ResponseEntity.status(response.getStatusCode()).body(msg);
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
