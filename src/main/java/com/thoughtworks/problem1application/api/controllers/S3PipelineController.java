@@ -1,3 +1,4 @@
+package com.thoughtworks.problem1application.api.controllers; // <- FALTANDO
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
